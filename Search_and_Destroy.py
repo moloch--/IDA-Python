@@ -10,7 +10,7 @@ import idc
 from idaapi import *
 
 
-### Setup code
+### Setup code, feel free to add more!
 dangerous_functions = [
     "sprintf", 
     "strcpy",
@@ -27,7 +27,7 @@ for function in Functions(SegStart(current_address), SegEnd(current_address)):
     func_lib[GetFunctionName(function)] = function
 
 ### Main Class
-class SeekAndDestroy(Choose2):
+class SearchAndDestroy(Choose2):
 
     def __init__(self, title):
         Choose2.__init__(self, title, [ ["Address", 10 | Choose2.CHCOL_HEX], ["Name", 30 | Choose2.CHCOL_PLAIN] ])
@@ -59,21 +59,21 @@ class SeekAndDestroy(Choose2):
         idc.Jump(self.items[index][2])
         print "[*] Jumping to 0x%08x" % self.items[index][2]
 
-    def OnGetLine(self, n):
-        return self.items[n]
+    def OnGetLine(self, index):
+        return self.items[index]
 
     def OnGetSize(self):
         return len(self.items)
 
-    def OnDeleteLine(self, n):
-        ea = self.items[n][2]
+    def OnDeleteLine(self, index):
+        ea = self.items[index][2]
         idc.Delfunc_name(ea)
-        return n
+        return index
 
-    def OnRefresh(self, n):
+    def OnRefresh(self, index):
         self.PopulateItems()
-        return n
+        return index
 
 ### Start GUI
-gui = SeekAndDestroy("Seek and Destroy - v0.2")
+gui = SearchAndDestroy("Search and Destroy - v0.2")
 gui.Show()
