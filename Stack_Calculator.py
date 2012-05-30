@@ -16,7 +16,7 @@ def stack_calc(function):
 	frame_counter = 0
 	flag = -1
 	
-	print "\n[*] Function:", GetFunctionName(function)
+	print "\n[*] Stack variables of %s:" % GetFunctionName(function)
 	while frame_counter < frame_size:
 		stack_var = GetMemberName(stack_frame, frame_counter)
 		if stack_var != None:
@@ -24,9 +24,8 @@ def stack_calc(function):
 				size = frame_counter - flag
 				if stack_var == " s":
 					size -= 8
-					frame_counter += 8
 				if BUFFER_SIZE < size:
-					print "   Stack -> %s (%d bytes)" % (current_member, size)
+					print "    %s (%d bytes)" % (current_member, size)
 				flag = frame_counter
 				current_member = stack_var
 			else:
