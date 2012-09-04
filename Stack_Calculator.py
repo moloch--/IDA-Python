@@ -37,6 +37,8 @@ def stack_calc(function):
 				frame_counter += 1
 		else:
 			frame_counter += 1
+	if BUFFER_SIZE < size:
+		print "    %s (%d bytes)" % (current_member, size)
 
 ### GUI Class
 class StackCalculator(Choose2):
